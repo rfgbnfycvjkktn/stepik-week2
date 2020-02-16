@@ -2,6 +2,7 @@ from flask import Flask, render_template
 import data_tour
 
 
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -26,4 +27,6 @@ def departure(departure):
 
     return render_template('departure.html', dep = departure, data =data_tour, tours_clear = data_tour_2)
 
-app.run()
+# app.run()
+if __name__ == '__main__':
+    app.run()
