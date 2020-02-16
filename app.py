@@ -8,9 +8,9 @@ app = Flask(__name__)
 def main():
     return render_template('index.html', data =data_tour)
 
-@app.route("/test/")
-def test():
-    return render_template('test.html', data =data_tour)
+# @app.route("/test/")
+# def test():
+#     return render_template('test.html', data =data_tour)
 
 @app.route("/tour/<id>/")
 def tour(id):
@@ -23,7 +23,6 @@ def departure(departure):
         if v["departure"] == departure:
             v["id"] = k
             data_tour_2.append(v)
-
 
     return render_template('departure.html', dep = departure, data =data_tour, tours_clear = data_tour_2)
 
