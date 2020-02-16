@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">{{ data.title }}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav" data-test="navigation">
+                <li class="nav-item active">
+                    {% for key, value in data.departures.items() %}
+                        <li><a class="nav-link" href=/departure/{{ key }}/> {{ value }} </a></li>
+                    {% endfor %}
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1 class="display-5 mt-4">Летим <span data-test="from">{{ data.departures[dep] }}</span></h1>
+    <p class="mb-4" >Найдено <span data-test="tourcount">{{ tours_clear|length }}</span> туров, от <span data-test="pricemin"> {% set dict = tours_clear|min(attribute="price") %} {{ dict.price }}</span> до <span data-test="pricemax">{% set dict = tours_clear|max(attribute="price") %} {{ dict.price }}</span> и от <span data-test="nightsmax">{% set dict = tours_clear|min(attribute="nights") %} {{ dict.nights }}</span> ночей до <span data-test="nightsmax">{% set dict = tours_clear|max(attribute="nights") %} {{ dict.nights }}</span> ночей</p>
+    <!-- HERO -->
+
+    <!-- CARDS -->
+      <div class="row mt-5" data-test="cards">
+          {% for item in tours_clear %}
+            <div class="col-4" data-test="card">
+                <div class="card mb-3" >
+                    <img src={{ item.picture }} class="card-img-top img-fluid" data-test="picture">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <a href="/tour/{{ item.id }}" class="btn btn-sm btn-primary" data-test="tourlink">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+      </div>
+</div>
+{% endblock %}
